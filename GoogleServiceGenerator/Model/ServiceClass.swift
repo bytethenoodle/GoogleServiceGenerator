@@ -54,7 +54,13 @@ class ServiceClass: SourceFileGeneratable, CustomStringConvertible {
             ])
         do {
             let template = try Template(named: "ServiceClass.stencil")
-            let rendered = try template.render(context)
+            let rendered = try template.render(["globalQueryParams": globalQueryParamsStrings,
+                                                "name": name,
+                                                "setUpQueryParams": generateSetUpQueryParams(),
+                                                "apiName": apiName,
+                                                "apiVersion": apiVersion,
+                                                "description": classDescription,
+                                                "apiMethods": methods])
             return rendered
         } catch {
             print("Failed to render template \(error) for class \(name)")
@@ -238,7 +244,12 @@ class APIMethod: SourceFileGeneratable, CustomStringConvertible {
             ])
         do {
             let template = try Template(named: "ServiceClassMethod.stencil")
-            let rendered = try template.render(context)
+            let rendered = try template.render(["nonRequiredParams": nonRequiredParamsStrings,
+                                                "name": generateMethodName(),
+                                                "setUpQueryParams": setUpQueryParams,
+                                                "performRequestCall": performRequestCall,
+                                                "serialization": serialization,
+                                                "valueVar": valueVar])
             return rendered
         } catch {
             print("Failed to render template \(error) for method \(name)")

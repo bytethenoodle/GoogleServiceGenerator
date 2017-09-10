@@ -33,13 +33,14 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         let discovery = Discovery()
         discovery.preferred = true
         discovery.listAPIs { result in
-            switch result {
-            case .success(let value):
+            
+            if let value = result.0 {
                 self.apiList = value
                 print(value)
                 self.tableView.reloadData()
-            case .failure(let error):
-                print(error)
+            }
+            else if let err = result.1 {
+                print(err)
             }
         }
     }

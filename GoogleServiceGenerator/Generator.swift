@@ -23,11 +23,12 @@ class Generator {
         loadOverrideFile(name)
         
         Discovery().getDiscoveryDocument(forAPI: name, version: version, completionHandler: { result in
-            if result.error != nil {
-                completionHandler(false, result.error)
+            
+            if let err = result.1 {
+                completionHandler(false, err)
                 return
             }
-            if let discoveryDoc = result.value {
+            else if let discoveryDoc = result.0 {
                 self.serviceName = discoveryDoc.name.objcName(shouldCapitalize: true)
                 // 1. Create model using Schemas
                 var model = self.createModelUsingSchemas(fromDiscoveryDoc: discoveryDoc)

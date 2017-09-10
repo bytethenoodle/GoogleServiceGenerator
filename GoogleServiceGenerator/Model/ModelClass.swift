@@ -42,7 +42,10 @@ class ModelClass: SourceFileGeneratable, CustomStringConvertible {
             ])
         do {
             let template = try Template(named: "ModelClass.stencil")
-            let rendered = try template.render(context)
+                let rendered = try template.render(["name": name,
+                                                    "supertype": supertype,
+                                                    "properties": propertiesStrings,
+                                                    "description": classDescription])
             return rendered
         } catch {
             print("Failed to render template \(error) for class \(name)")
@@ -91,7 +94,11 @@ class ModelListClass: SourceFileGeneratable, CustomStringConvertible{
             ])
         do {
             let template = try Template(named: "ModelListClass.stencil")
-            let rendered = try template.render(context)
+            let rendered = try template.render(["name": name,
+                                                "listType": type,
+                                                "properties": propertiesStrings,
+                                                "itemType": itemType,
+                                                "description": classDescription])
             return rendered
         } catch {
             print("Failed to render template \(error) for class \(name)")
