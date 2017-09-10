@@ -2,10 +2,9 @@ platform :osx, '10.12'
 use_frameworks!
 
 target 'GoogleServiceGenerator' do
-    pod 'GoogleAPISwiftClient/Discovery', :path => '~/Documents/Developer/iOS/Objective-C_Resources/GoogleClient'
-    
-    pod 'PathKit', '~> 0.7.0'
-    pod 'Stencil', '~> 0.6.0'
+    pod 'GoogleAPISwiftClient/Discovery', :path => 'GoogleAPISwiftClient'
+    pod 'PathKit'
+    pod 'Stencil', :path => 'Stencil'
 end
 
 post_install do |installer|
