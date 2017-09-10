@@ -39,8 +39,10 @@ class SchemaToServiceClassTransformer {
         // 6) API Methods
         var methods: [APIMethod] = []
         for (resourceName, resourceInfo) in discoveryDoc.resources {
-            let resourceMethods = apiMethods(fromMethodsSchema: resourceInfo.methods, resourceName: resourceName, serviceClass: serviceClass)
-            methods.append(contentsOf: resourceMethods)
+            if let method = resourceInfo.methods {
+                let resourceMethods = apiMethods(fromMethodsSchema: method, resourceName: resourceName, serviceClass: serviceClass)
+                methods.append(contentsOf: resourceMethods)
+            }
         }
         serviceClass.apiMethods = methods
         

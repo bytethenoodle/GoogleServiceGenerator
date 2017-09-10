@@ -191,7 +191,7 @@ class SchemaToModelClassTransformer {
         let location = info.location
         
         // 9) put it all together
-        return Property(nameFoundInJSONSchema: name, type: propertyType, optionality: optionality, defaultValue: defaultValue, required: required!, description: desc, isEnum: isEnum, location: location, arrayItemType: arrayItemType, dictionaryItemType: dictionaryItemType, isModelType: isModelType)
+        return Property(nameFoundInJSONSchema: name, type: propertyType, optionality: optionality, defaultValue: defaultValue, required: required, description: desc, isEnum: isEnum, location: location, arrayItemType: arrayItemType, dictionaryItemType: dictionaryItemType, isModelType: isModelType)
     }
     
     func propertiesFromSchemaProperties(_ schemaProperties: [String: DiscoveryJSONSchema], resourceName: String, className: String) -> [Property] {

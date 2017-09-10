@@ -31,7 +31,7 @@ class Property: SourceFileGeneratable, CustomStringConvertible {
     var dictionaryItemType: String?
     var isModelType: Bool
     
-    init(nameFoundInJSONSchema jsonName: String, type: String, optionality: OptionalityOnType, transformType: String? = nil, defaultValue: String? = nil, required: Bool = false, description: String?, isEnum: Bool = false, location: String? = nil, arrayItemType: String? = nil, dictionaryItemType: String? = nil, isModelType: Bool = false) {
+    init(nameFoundInJSONSchema jsonName: String, type: String, optionality: OptionalityOnType, transformType: String? = nil, defaultValue: String? = nil, required: Bool? = false, description: String?, isEnum: Bool = false, location: String? = nil, arrayItemType: String? = nil, dictionaryItemType: String? = nil, isModelType: Bool = false) {
         self.jsonName = jsonName
         self.type = type
         self.optionality = optionality
@@ -43,10 +43,15 @@ class Property: SourceFileGeneratable, CustomStringConvertible {
             hasDefaultValue = true
             self.optionality = .NonOptional
         }
-        self.required = required
-        if required {
+        
+        if required == true {
+            self.required = true
             self.optionality = .NonOptional
         }
+        else {
+            self.required = false
+        }
+        
         docDescription = description
         self.isEnum = isEnum
         self.location = location

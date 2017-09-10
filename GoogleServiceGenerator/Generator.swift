@@ -103,16 +103,21 @@ class Generator {
     func createExtraModelForMethodsInDiscoveryDoc(_ doc: DiscoveryRestDescription) -> [SourceFileGeneratable] {
         var modelItems: [SourceFileGeneratable] = []
         for (resourceName, resourceInfo) in doc.resources {
-            for (_, methodInfo) in resourceInfo.methods {
-                if methodInfo.parameters != nil {
-                    for (propertyName, propertyInfo) in methodInfo.parameters {
-                        if propertyInfo.type == "object" && propertyInfo.properties != nil {
-                            modelItems.append(SchemaToModelClassTransformer().subModelClassFromSchema(propertyName, resourceName: resourceName, schema: propertyInfo))
-                        } else if propertyInfo.enumValues != nil {
-                            modelItems.append(SchemaToModelEnumTransformer().enumFromSchema(propertyName, resourceName: resourceName, propertyInfo: propertyInfo))
+            if let methods = resourceInfo.methods {
+                for (_, methodInfo) in methods {
+                    if methodInfo.parameters != nil {
+                        for (propertyName, propertyInfo) in methodInfo.parameters {
+                            if propertyInfo.type == "object" && propertyInfo.properties != nil {
+                                modelItems.append(SchemaToModelClassTransformer().subModelClassFromSchema(propertyName, resourceName: resourceName, schema: propertyInfo))
+                            } else if propertyInfo.enumValues != nil {
+                                modelItems.append(SchemaToModelEnumTransformer().enumFromSchema(propertyName, resourceName: resourceName, propertyInfo: propertyInfo))
+                            }
                         }
                     }
+                    
                 }
+            }
+            else {
                 
             }
         }
