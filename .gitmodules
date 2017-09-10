@@ -1,0 +1,6 @@
+[submodule "Stencil"]
+	path = Stencil
+	url = git@github.com:bytethenoodle/Stencil.git
+[submodule "GoogleAPISwiftClient"]
+	path = GoogleAPISwiftClient
+	url = git@github.com:bytethenoodle/GoogleAPISwiftClient.git
